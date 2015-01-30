@@ -1,11 +1,11 @@
 'use strict';
+/*global sinon: true*/
 
 describe('agent',function(){
 
     var Agent = require('../lib/agent');
 
     it('Must be an instance of Agent',function(done){
-        expect(Agent()).to.be.an.instanceOf(Agent);
         expect(new Agent()).to.be.an.instanceOf(Agent);
         done();
     });
