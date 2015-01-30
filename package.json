@@ -4,10 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive --bail --reporter spec test 2>&1",
+    "ci": "mocha --recursive --bail --watch test",
+    "coverage": "rm -rf coverage; istanbul cover _mocha -- --recursive --reporter spec --bail",
+    "publish-coverage": "(cat coverage/lcov.info | coveralls)",
+    "jshint-lib": "jshint lib",
+    "jshint-test": "jshint test"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
+  "pre-commit": [
+    "jshint-lib",
+    "jshint-test",
+    "test"
+  ],
+  "author": "Matteo Murgida <teomurgi@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "which": "~1.0.8",
+    "pre-commit": "0.0.11",
+    "mocha": "~2.1.0",
+    "jshint": "~2.6.0",
+    "istanbul": "~0.3.5",
+    "coveralls": "~2.11.2",
+    "chai": "~1.10.0",
+    "sinon": "~1.12.2",
+    "sinon-chai": "~2.6.0"
+  },
   "dependencies": {
     "coap": "~0.8.0",
     "async": "~0.9.0",
