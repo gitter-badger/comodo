@@ -12,6 +12,7 @@ describe('CoapTransport',function(){
     beforeEach(function(done) {
         server = coap.createServer();
         server.on('request', function(req, res) {
+            console.log('\tRequest payload: '+ req.payload);
             res.end(req.payload + '\n');
         });
         server.listen(done);

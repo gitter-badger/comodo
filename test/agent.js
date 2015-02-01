@@ -21,19 +21,6 @@ describe('Agent',function(){
         done();
     });
 
-    it('Should collect and publish stats',function(done){
-        var agent = new Agent({samplesRate:100});
-
-        expect(agent.opts.samplesRate).to.equal(100);
-
-        var cb = sinon.spy();
-        agent.start(cb);
-        setTimeout(function() {
-            expect(cb).to.have.been.callCount(4);
-            done();
-        }, 350);
-    });
-
     it('Should throw error if something went wrong',function(done){
         var agent = new Agent(function(){});
         agent.collectStats = null;
@@ -44,6 +31,24 @@ describe('Agent',function(){
             expect(err).to.exist();
         }
         done();
+    });
+
+    it('Should send stats using coap transport',function(done){
+        var coap = require('coap');
+        var server;
+
+        server = coap.createServer();
+        server.on('request', function(req, res) {
+            console.log('\tRequest payload: '+ req.payload);
+            res.end(req.payload + '\n');
+            server.close();
+            done();
+        });
+        server.listen();
+
+        var agent = new Agent(function(){});
+        agent.start();
+
     });
 
 });
