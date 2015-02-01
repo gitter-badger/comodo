@@ -23,7 +23,7 @@ describe('CoapTransport',function(){
         done();
     });
 
-    it('Should send a message to the coap Server',function(done){
+    it('Should send a message object to the coap Server',function(done){
 
         var ct = new CoapTransport();
         var message = {test:'test'};
@@ -34,6 +34,25 @@ describe('CoapTransport',function(){
         });
 
 
+    });
+
+    it('Should send a message string to the coap Server',function(done){
+
+        var ct = new CoapTransport();
+        var message = "{'test':'test'}";
+        ct.sendMessage(message,{topic:'test'});
+
+        done();
+    });
+
+    it('Should throw an error if topic is not passed to sendMessage',function(done){
+        var ct = new CoapTransport();
+        var message = "{test:'test'}";
+        try{
+            ct.sendMessage(message,null);
+        }catch(err){
+            done();
+        }
     });
 
 });

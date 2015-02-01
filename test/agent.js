@@ -6,6 +6,7 @@ describe('Agent',function(){
     var Agent = require('../lib/agent');
 
     it('Should be an instance of Agent',function(done){
+        expect(require('../lib/agent')()).to.be.an.instanceOf(Agent);
         expect(new Agent()).to.be.an.instanceOf(Agent);
         done();
     });
@@ -42,12 +43,15 @@ describe('Agent',function(){
             console.log('\tRequest payload: '+ req.payload);
             res.end(req.payload + '\n');
             server.close();
-            done();
         });
         server.listen();
 
-        var agent = new Agent(function(){});
-        agent.start();
+        var agent = new Agent({samplesRate:30});
+        agent.start(null);
+
+        setTimeout(function(){
+            done();
+        },1000);
 
     });
 
