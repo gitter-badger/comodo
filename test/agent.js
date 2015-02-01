@@ -1,16 +1,16 @@
 'use strict';
 /*global sinon: true*/
 
-describe('agent',function(){
+describe('Agent',function(){
 
     var Agent = require('../lib/agent');
 
-    it('Must be an instance of Agent',function(done){
+    it('Should be an instance of Agent',function(done){
         expect(new Agent()).to.be.an.instanceOf(Agent);
         done();
     });
 
-    it('Must have a bunyan logger',function(done){
+    it('Should have a bunyan logger',function(done){
         expect(new Agent().logger).to.exist;
         done();
     });
@@ -21,7 +21,7 @@ describe('agent',function(){
         done();
     });
 
-    it('Must collect and publish stats',function(done){
+    it('Should collect and publish stats',function(done){
         var agent = new Agent({samplesRate:100});
 
         expect(agent.opts.samplesRate).to.equal(100);
